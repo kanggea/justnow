@@ -1,0 +1,68 @@
+2）案例实操 （1）声明变量时，类型可以省略，编译器自动推导，即类型推导 （2）类型确定后，就不能修改，说明 Scala 是强数据类型语言。 （3）变量声明时，必须要有初始值 （4）在声明/定义一个变量时，可以使用 var 或者 val 来修饰，var 修饰的变量可改变， val 修饰的变量不可改。
+
+）案例实操
+需求：判断 hello、Hello12、1hello、h-b、x h、h_4、_ab、Int、_、+*-/#!、+*-/#!1、if、
+`if`，这些名字是否合法。
+object TestName {
+ def main(args: Array[String]): Unit = {
+ // （1）以字母或者下划线开头，后接字母、数字、下划线
+ var hello: String = "" // ok
+ var Hello12: String = "" // ok
+ var 1hello: String = "" // error 数字不能开头
+ var h-b: String = "" // error 不能用-
+ var x h: String = "" // error 不能有空格
+ var h_4: String = "" // ok
+ var _ab: String = "" // ok
+ var Int: String = "" // ok 因为在 Scala 中 Int 是预定义的字符,
+不是关键字，但不推荐
+ var _: String = "hello" // ok 单独一个下划线不可以作为标识符，
+因为_被认为是一个方法
+ println(_)
+ //（2）以操作符开头，且只包含操作符（+ - * / # !等）
+ var +*-/#! : String = "" // ok
+ var +*-/#!1 : String = "" // error 以操作符开头，必须都是操作
+ 字符串输出
+1）基本语法
+（1）字符串，通过+号连接
+（2）printf 用法：字符串，通过%传值。
+（3）字符串模板（插值字符串）：通过$获取变量值
+
+2）案例实操
+package com.atguigu.chapter02
+object TestCharType {
+ def main(args: Array[String]): Unit = {
+ var name: String = "jinlian"
+ var age: Int = 18
+ //（1）字符串，通过+号连接
+ println(name + " " + age)
+ //（2）printf 用法字符串，通过%传值。
+ printf("name=%s age=%d\n", name, age)
+ //（3）字符串，通过$引用
+//多行字符串，在 Scala中，利用三个双引号包围多行字符串就可以实现。
+//输入的内容，带有空格、\t 之类，导致每一行的开始位置不能整洁对齐。
+//应用 scala 的 stripMargin 方法，在 scala 中 stripMargin 默认
+是“|”作为连接符，//在多行换行的行头前面加一个“|”符号即可。
+ val s =
+ """
+ |select
+ | name,
+ | age
+ |from user
+ |where name="zhangsan"
+ """.stripMargin
+println(s)
+//如果需要对变量进行运算，那么可以加${}
+ val s1 =
+ s"""
+ |select
+ | name,
+ | age
+ |from user
+ |where name="$name" and age=${age+2}
+ """.stripMargin
+ println(s1)
+ val s2 = s"name=$name"
+ println(s2)
+ }
+
+
